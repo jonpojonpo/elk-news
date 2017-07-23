@@ -2,7 +2,14 @@ PUT test-rns/_mapping/*
 {
   "properties": {
     "parsed.investment": {
-      "type": "long"
+      "type": "float"
     }
   }
+}
+PUT test-rns/_mapping/* 
+{
+  "properties": {
+    "parsed.Holding": {
+      "type": "float"
+    }
 }

@@ -10,6 +10,8 @@ import requests
 from bs4 import BeautifulSoup
 from elasticsearch import Elasticsearch
 import Shareholding
+import HiC
+import TiOS
 
 es = Elasticsearch()
 locale.setlocale(locale.LC_ALL, 'en_GB.UTF-8')
@@ -30,6 +32,10 @@ for i in d.entries:
   parsed = {}
   if 'Shareholding' in rnstype:
       parsed = Shareholding.Shareholding(article)
+  if 'in Company' in rnstype:
+      parsed = HiC.HiC(article)
+  if 'in Own Shares' in rnstype:
+      parsed = TiOS.TiOS(article)
   body =''
   for t in  article.stripped_strings:
       if "RNS Number" in t:

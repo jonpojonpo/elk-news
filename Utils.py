@@ -57,9 +57,12 @@ def getPrice(x):
 
 def getDecimal(x):
     y = Decimal(0) 
-    tup = re.search('([\.\d]+)', x).groups()
-    if tup:
-       y=Decimal(tup[0])
+    try:
+        tup = re.search('([\.\d]+)', x).groups()
+        if tup:
+           y=Decimal(tup[0])
+    except:
+        None
     return y
 
 def getPrice2(x):
