@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# minimal elastic install
+mkdir -p ../elastic
+cd ../elastic
+curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.5.0.tar.gz
+
+tar -xvf elasticsearch-5.5.0.tar.gz
+cd elasticsearch-5.5.0/bin
+./elasticsearch

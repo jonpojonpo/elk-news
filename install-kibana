@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# minimal kibana install
+mkdir -p ../kibana
+cd ../kibana
+wget https://artifacts.elastic.co/downloads/kibana/kibana-5.5.0-linux-x86_64.tar.gz
+sha1sum kibana-5.5.0-linux-x86_64.tar.gz 
+tar -xzf kibana-5.5.0-linux-x86_64.tar.gz
+
+cd kibana/
+

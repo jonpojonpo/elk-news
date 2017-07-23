@@ -1,0 +1,8 @@
+PUT test-rns/_mapping/* 
+{
+  "properties": {
+    "parsed.investment": {
+      "type": "long"
+    }
+  }
+}

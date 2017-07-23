@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# install additional pythonlibs
+
+pip install feedparser
+pip install Elasticsearch
+pip install BeautifulSoup 
+pip install lxml
+pip install xmljson 
+pip install simplejson 
+pip install html5lib

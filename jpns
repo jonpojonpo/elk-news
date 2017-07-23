@@ -1,0 +1,58 @@
+#!/usr/bin/env python2
+# -- coding: utf-8 --
+
+import locale
+import feedparser
+from elasticsearch import Elasticsearch
+import time
+import re
+import requests
+from bs4 import BeautifulSoup
+from elasticsearch import Elasticsearch
+import Shareholding
+
+es = Elasticsearch()
+locale.setlocale(locale.LC_ALL, 'en_GB.UTF-8')
+d = feedparser.parse('http://www.investegate.co.uk/rss.aspx')
+print(d.feed.title)
+print(d.feed.link)
+print(d.feed.description)
+for i in d.entries:
+  #print(i.link)
+  timestamp = time.strftime('%Y-%m-%dT%H:%M:%SZ', i.published_parsed) 
+  #print(timestamp, i.investegate_companycode, i.title)
+  page=requests.get(i.link)
+  rnstype = i.title.split(':')[1].strip().strip('/')
+  soup = BeautifulSoup(page.content, 'xml')
+  article = soup.find(id="ArticleContent")
+  print(timestamp, i.investegate_companycode, rnstype)
+  active=0
+  parsed = {}
+  if 'Shareholding' in rnstype:
+      parsed = Shareholding.Shareholding(article)
+  body =''
+  for t in  article.stripped_strings:
+      if "RNS Number" in t:
+         active = True
+         rnsid = t.split(':')[1]
+      if "This information is provided by RNS" in t:
+         active = False 
+      #print(t)
+      if active and ",e,r,n,c,a,p" not in t:
+          body = body + t + "\n"
+  #print(timestamp, i.investegate_companycode, i.title)
+  doc = { 
+          'timestamp' : timestamp,
+          'EPIC' : i.investegate_companycode.strip('(').strip(')'),
+          'title' : i.title, 
+          'url' : i.link, 
+          'rnsbody' : body,
+          'parsed' : parsed
+  }
+  #print(doc)
+  try:
+      res = es.index(index="test-rns", doc_type=rnstype, id=rnsid, body=doc)
+      print(res)
+  except:
+      print("Error indexing Document:")
+  time.sleep(1)
