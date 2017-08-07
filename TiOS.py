@@ -6,13 +6,14 @@ import re
 from decimal import Decimal
 
 
-def Shareholding(article):
+def TiOS(article):
+    fulltext =''
     for s in article.stripped_strings:
-        fulltext.append(s)
+        fulltext += s
     print(fulltext)
             
     #end of tables
-    returndoc = { "TiOS" : str(gc) }
+    returndoc = { "TiOS" : "" }
     return returndoc
 
 

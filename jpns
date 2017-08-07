@@ -40,7 +40,10 @@ for i in d.entries:
   for t in  article.stripped_strings:
       if "RNS Number" in t:
          active = True
-         rnsid = t.split(':')[1]
+         try:
+             rnsid = t.split(':')[1]
+         except:
+             rnsid="UNKNOWN"
       if "This information is provided by RNS" in t:
          active = False 
       #print(t)

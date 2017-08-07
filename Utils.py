@@ -100,7 +100,7 @@ def isVolume(x):
     return False
 
 def getSide(x):
-    x.lower()
+    x = x.lower()
     print(x)
     if 'purchase' in x:
         return 1
