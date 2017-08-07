@@ -4,7 +4,7 @@
 
 pip install feedparser
 pip install Elasticsearch
-pip install BeautifulSoup 
+pip install BeautifulSoup4
 pip install lxml
 pip install xmljson 
 pip install simplejson 
